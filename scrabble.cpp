@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <unordered_map>
 
 using namespace std;
 
@@ -16,20 +15,22 @@ int dlugosc(string litery)
     }
 }
 
-bool canFormSubstring(string sub, string litery)
+bool czydasieulozyc(string sub, string litery)
 {
-    unordered_map<char, int> letterCount;
+    int letterCount[26] = {0};
     
-    for (char c : litery)
+    for (size_t i = 0; i < litery.length(); i++)
     {
-        letterCount[c]++;
+        char c = litery[i];
+        letterCount[c - 'a']++;
     }
     
-    for (char c : sub)
+    for (size_t i = 0; i < sub.length(); i++)
     {
-        if (letterCount[c] > 0)
+        char c = sub[i];
+        if (letterCount[c - 'a'] > 0)
         {
-            letterCount[c]--;
+            letterCount[c - 'a']--;
         }
         else
         {
@@ -49,17 +50,17 @@ int main()
     cin >> litery;
     
     int minLength = dlugosc(litery);
-    
-    int wynik=0;
+    int wynik = 0;
 
     for (int len = minLength; len <= slowo.length(); len++) {
         for (int i = 0; i <= slowo.length() - len; i++) {
             string temp = slowo.substr(i, len);
-            if (canFormSubstring(temp, litery)) {
+            if (czydasieulozyc(temp, litery)) {
                 wynik++;
             }
         }
     }
 
     cout << wynik;
+    return 0;
 }
