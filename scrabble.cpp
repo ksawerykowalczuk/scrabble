@@ -15,50 +15,53 @@ int dlugosc(string litery)
     }
 }
 
-bool czydasieulozyc(string sub, string litery)
-{
-    int letterCount[26] = {0};
-    
-    for (size_t i = 0; i < litery.length(); i++)
+int ilesiedaulozyc(string slowo, string litery, int indeks, int minLength)
+{   
+    bool czyznalazlem= false; 
+    int licznik = 0;
+    for (int i = indeks; i < slowo.length()-minLength; i++)
     {
-        char c = litery[i];
-        letterCount[c - 'a']++;
+        for (int j = 0; j < litery.length(); j++)
+        {
+            if (slowo[i] == litery[j])
+            {
+                litery[j] = ' ';
+                licznik ++;
+                czyznalazlem = true;
+                break;
+            }
+            
+
+        }
+        if (!czyznalazlem)
+        {
+            break;
+        }
+        
     }
     
-    for (size_t i = 0; i < sub.length(); i++)
-    {
-        char c = sub[i];
-        if (letterCount[c - 'a'] > 0)
-        {
-            letterCount[c - 'a']--;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    
-    return true;
+    return licznik;
 }
 
 int main()
 {
     string slowo;
     string litery;
-    
+
     cin >> slowo;
     cin >> litery;
-    
+
     int minLength = dlugosc(litery);
     int wynik = 0;
 
-    for (int len = minLength; len <= slowo.length(); len++) {
-        for (int i = 0; i <= slowo.length() - len; i++) {
-            string temp = slowo.substr(i, len);
-            if (czydasieulozyc(temp, litery)) {
-                wynik++;
-            }
+    for (int i = 0; i <= slowo.length() - minLength; i++)
+    {
+        int temp = ilesiedaulozyc(slowo, litery, i, minLength);
+        if (temp >= minLength)
+        {
+            wynik = wynik + temp -minLength +1;
         }
+        
     }
 
     cout << wynik;
