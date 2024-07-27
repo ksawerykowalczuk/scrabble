@@ -17,10 +17,11 @@ int dlugosc(string litery)
 
 int ilesiedaulozyc(string slowo, string litery, int indeks, int minLength)
 {   
-    bool czyznalazlem= false; 
+    
     int licznik = 0;
-    for (int i = indeks; i < slowo.length()-minLength; i++)
+    for (int i = indeks; i < slowo.length(); i++)
     {
+        bool czyznalazlem = false; 
         for (int j = 0; j < litery.length(); j++)
         {
             if (slowo[i] == litery[j])
@@ -30,6 +31,7 @@ int ilesiedaulozyc(string slowo, string litery, int indeks, int minLength)
                 czyznalazlem = true;
                 break;
             }
+
             
 
         }
